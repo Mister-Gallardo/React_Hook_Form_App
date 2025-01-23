@@ -9,7 +9,7 @@ interface FormValues {
 }
 
 const Normal: React.FC = () => {
-  const { control, handleSubmit, register } = useForm<FormValues>();
+  const { handleSubmit, register } = useForm<FormValues>();
 
   const submitOnValid: SubmitHandler<FormValues> = (data: FormValues) => {
     console.log(data)
