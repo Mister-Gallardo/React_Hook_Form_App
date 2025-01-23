@@ -73,10 +73,13 @@ const Normal: React.FC = () => {
   return (
     <>
       <form onSubmit={handleSubmit(submitOnValid, submitOnInValid)}>
+        {/* компонент от Hook Form для интеграции со стороними библиотеками (MUI, AntD, ...) */}
+        {/* С помощью Controller Hook Form контролирует формы от сторонних библиотек */}
         <Controller
-          name="email"
-          control={control}
-          defaultValue=""
+          name="email" // уникальный айди компонента (вместо {...register('email')})
+          control={control} // обязательный атрибут для того, чтобы Hook form ослеживал компонент
+          defaultValue="" // желательный атрибут
+          // необязательный атрибут с валидацией
           rules={{
             required: "Email обязателен для заполнения",
             pattern: {
@@ -84,6 +87,9 @@ const Normal: React.FC = () => {
               message: "Неверный формат email",
             },
           }}
+          // обязательный атрибут для рендера инпута.
+          // field - это свойтсва формы от Hook Form, который мы передём TextField.
+          // то есть этим Hook form как бы берёт под свои власть и влияние TextField
           render={({ field, fieldState }) => (
             <TextField
               {...field}
@@ -109,6 +115,7 @@ const Normal: React.FC = () => {
             <TextField
               {...field}
               label="Пароль"
+              type='password'
               variant="outlined"
               error={!!fieldState.error}
               helperText={fieldState.error?.message}
