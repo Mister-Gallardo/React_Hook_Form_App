@@ -9,6 +9,7 @@ function App() {
     <>
       {/* <Easy /> */}
       <Normal />
+
     </>
   )
 }

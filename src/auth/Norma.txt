@@ -1,0 +1,71 @@
+import React from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+
+interface FormValues {
+  email: string;
+  password: string;
+}
+
+const Normal: React.FC = () => {
+  const { handleSubmit, control } = useForm<FormValues>();
+
+  const submitOnValid: SubmitHandler<FormValues> = (data: FormValues) => {
+    console.log(data)
+  }
+
+  const submitOnInValid: SubmitErrorHandler<FormValues> = (data) => {
+    console.log(data)
+  }
+
+  return (
+    <form onSubmit={handleSubmit(submitOnValid, submitOnInValid)}>
+      <Controller
+        name="email"
+        control={control}
+        // defaultValue=""
+        rules={{
+          required: 'Email is required',
+          pattern: {
+            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            message: 'Invalid email format',
+          },
+        }}
+        render={({ field, fieldState }) => (
+          <TextField
+            {...field}
+            label="Email"
+            error={!!fieldState.error}
+            helperText={fieldState.error?.message}
+          />
+        )}
+      />
+
+      <Controller
+        name="password"
+        control={control}
+        // defaultValue=""
+        rules={{ required: 'Password is required', pattern: {
+            value: /^.{6,}$/,
+            message: 'Minlength 6'
+        } }}
+        render={({ field, fieldState }) => (
+          <TextField
+            {...field}
+            label="Password"
+            type="password"
+            error={!!fieldState.error}
+            helperText={fieldState.error?.message}
+          />
+        )}
+      />
+
+      <Button type="submit" variant="contained" color="primary">
+        Submit
+      </Button>
+    </form>
+  );
+};
+
+export default Normal;

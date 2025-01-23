@@ -19,6 +19,8 @@ const fetchUser = async (user: IUser) => {
   }
 };
 
+
+// простой пример использования react hook form
 const Easy: React.FC = () => {
   const [isFound, setIsFound] = useState<true | false | null>(null);
   const { register, handleSubmit, getValues, watch } = useForm<IUser>();
